@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun:*)",
+      "Bash(timeout:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: 孕期健康追踪系统\n\n✨ 功能特性：\n- 用户认证系统（注册/登录）\n- 每日健康数据记录（睡眠、运动、饮食、心情等）\n- 统计报告可视化（周报/月报）\n- PWA 支持（可安装到手机主屏幕）\n- Web Push 通知（iOS 16.4+）\n- 离线数据缓存\n\n🏗️ 技术栈：\n- 前端：Vue 3 + TypeScript + Vite + Tailwind CSS\n- 后端：Cloudflare Workers + Hono\n- 数据库：Cloudflare D1 (SQLite)\n- 部署：Cloudflare Pages + Workers\n\n🚀 一键启动：\n- 开发：bun run dev\n- 部署：bun run deploy\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

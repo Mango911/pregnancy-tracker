@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  body {
+    @apply bg-light-bg dark:bg-dark-bg text-light-text-primary dark:text-dark-text-primary;
+    @apply font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease;
+  }
+
+  html {
+    @apply h-full;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply h-full overflow-x-hidden;
+  }
+
+  #app {
+    @apply h-full;
+  }
+}
+
+@layer components {
+  /* iOS 风格卡片 */
+  .ios-card {
+    @apply bg-light-card dark:bg-dark-card rounded-ios-lg shadow-ios;
+    @apply border border-light-border dark:border-dark-border;
+    transition: all 0.2s ease;
+  }
+
+  .ios-card:active {
+    @apply scale-[0.98];
+  }
+
+  /* iOS 风格按钮 */
+  .ios-button {
+    @apply px-6 py-3 rounded-ios font-medium;
+    @apply transition-all duration-200;
+    @apply active:scale-95;
+  }
+
+  .ios-button-primary {
+    @apply ios-button bg-ios-blue text-white;
+    @apply hover:bg-opacity-90;
+  }
+
+  .ios-button-secondary {
+    @apply ios-button bg-light-card dark:bg-dark-card;
+    @apply text-ios-blue border-2 border-ios-blue;
+  }
+
+  /* iOS 风格输入框 */
+  .ios-input {
+    @apply w-full px-4 py-3 rounded-ios;
+    @apply bg-light-card dark:bg-dark-card;
+    @apply border border-light-border dark:border-dark-border;
+    @apply text-light-text-primary dark:text-dark-text-primary;
+    @apply placeholder-light-text-tertiary dark:placeholder-dark-text-tertiary;
+    @apply focus:outline-none focus:ring-2 focus:ring-ios-blue;
+    @apply transition-all duration-200;
+  }
+
+  /* iOS 风格导航栏 */
+  .ios-navbar {
+    @apply sticky top-0 z-50;
+    @apply bg-light-card dark:bg-dark-card bg-opacity-80 dark:bg-opacity-80;
+    @apply backdrop-blur-xl;
+    @apply border-b border-light-border dark:border-dark-border;
+  }
+
+  /* 平滑滚动 */
+  .smooth-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* 页面过渡动画 */
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.3s ease;
+  }
+
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+  .slide-enter-active {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .slide-leave-active {
+    transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+  }
+
+  .slide-enter-from {
+    transform: translateX(100%);
+  }
+
+  .slide-leave-to {
+    transform: translateX(-100%);
+  }
+
+  /* 加载动画 */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  /* iOS 风格分隔线 */
+  .ios-divider {
+    @apply h-px bg-light-border dark:bg-dark-border;
+  }
+
+  /* iOS 风格标签 */
+  .ios-badge {
+    @apply inline-flex items-center justify-center px-2 py-1;
+    @apply text-xs font-medium rounded-full;
+  }
+
+  /* 玻璃态效果 */
+  .glass-effect {
+    @apply bg-opacity-80 dark:bg-opacity-80 backdrop-blur-xl;
+  }
+}
+
+/* 自定义滚动条 (Webkit) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-light-text-tertiary dark:bg-dark-text-tertiary rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-light-text-secondary dark:bg-dark-text-secondary;
+}
+
+/* 安全区域适配 (iOS) */
+@supports (padding: env(safe-area-inset-top)) {
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}

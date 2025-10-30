@@ -1,0 +1,24 @@
+name = "pregnancy-tracker-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# D1 数据库绑定
+[[d1_databases]]
+binding = "DB"
+database_name = "pregnancy-tracker-db"
+database_id = "98dae2e4-a9ff-4d01-9795-7a4476cf85c5"  # 部署时替换
+
+# 环境变量（用于 JWT 和 Web Push）
+[vars]
+JWT_SECRET = "gJnYtR7i51eheWz+1QDxxvaG2gOuOOjnmKjJxza6bg4="
+VAPID_PUBLIC_KEY = "BBRF0kxNdxJsF28P9c0D1L0rQl2srO_jKz16FCIxddmG3QfEAJswY2MMtODe3rThWHrriDDY3MWCKYElLSDkCSc"
+VAPID_PRIVATE_KEY = "OTyTUZ2Val2-zVH0ly1IVwWU9Jg6_vTu4Q9m-lWgvDk"
+VAPID_EMAIL = "mailto:your-email@example.com"
+
+# 定时任务：每天早上 9:00 (UTC+8 = 01:00 UTC) 发送提醒
+[triggers]
+crons = ["0 1 * * *"]
+
+# CORS 配置
+[env.production]
+vars = { FRONTEND_URL = "https://your-app.pages.dev" }
