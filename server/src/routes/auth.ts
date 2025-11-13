@@ -5,6 +5,33 @@ import { generateJWT } from '../utils/jwt';
 
 const auth = new Hono();
 
+/**
+ * 验证电子邮件格式
+ */
+function validateEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email) && email.length <= 255;
+}
+
+/**
+ * 验证密码强度
+ */
+function validatePassword(password: string): { valid: boolean; message?: string } {
+  if (password.length < 12) {
+    return { valid: false, message: 'Password must be at least 12 characters' };
+  }
+  if (!/[A-Z]/.test(password)) {
+    return { valid: false, message: 'Password must contain at least one uppercase letter' };
+  }
+  if (!/[a-z]/.test(password)) {
+    return { valid: false, message: 'Password must contain at least one lowercase letter' };
+  }
+  if (!/[0-9]/.test(password)) {
+    return { valid: false, message: 'Password must contain at least one number' };
+  }
+  return { valid: true };
+}
+
 // 注册
 auth.post('/register', async (c) => {
   try {
@@ -15,8 +42,15 @@ auth.post('/register', async (c) => {
       return c.json({ error: 'Email and password are required' }, 400);
     }
 
-    if (password.length < 6) {
-      return c.json({ error: 'Password must be at least 6 characters' }, 400);
+    // 验证电子邮件格式
+    if (!validateEmail(email)) {
+      return c.json({ error: 'Invalid email format' }, 400);
+    }
+
+    // 验证密码强度
+    const passwordValidation = validatePassword(password);
+    if (!passwordValidation.valid) {
+      return c.json({ error: passwordValidation.message }, 400);
     }
 
     // 检查用户是否已存在
@@ -28,12 +62,12 @@ auth.post('/register', async (c) => {
     // 创建用户
     const user = await createUser(c.env.DB, email, password, name);
 
-    // 生成 JWT
+    // 生成 JWT（30 天过期）
     const token = await generateJWT(
       {
         userId: user.id,
         email: user.email,
-        exp: Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60, // 30 天
+        exp: Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60,
       },
       c.env.JWT_SECRET
     );

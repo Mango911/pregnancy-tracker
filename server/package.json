@@ -1,13 +1,13 @@
 {
-  "name": "pregnancy-tracker-backend",
+  "name": "health-tracker-backend",
   "version": "1.0.0",
-  "description": "Cloudflare Workers backend for pregnancy tracker",
+  "description": "Cloudflare Workers backend for Personal Health Tracker",
   "main": "src/index.ts",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "db:init": "wrangler d1 execute pregnancy-tracker-db --file=./schema.sql",
-    "db:local": "wrangler d1 execute pregnancy-tracker-db --local --file=./schema.sql"
+    "db:init": "wrangler d1 execute health-tracker-db --file=./schema.sql",
+    "db:local": "wrangler d1 execute health-tracker-db --local --file=./schema.sql"
   },
   "dependencies": {
     "hono": "^4.0.0",

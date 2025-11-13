@@ -1,5 +1,5 @@
 {
-  "name": "pregnancy-tracker",
+  "name": "health-tracker",
   "version": "1.0.0",
   "private": true,
   "workspaces": ["app", "server"],
@@ -11,10 +11,10 @@
     "build:check": "bun run --filter='app' build:check",
     "deploy": "bun run deploy:server && bun run deploy:app",
     "deploy:server": "cd server && bun run deploy",
-    "deploy:app": "cd app && bun run build && bunx wrangler pages deploy dist --project-name=pregnancy-tracker",
+    "deploy:app": "cd app && bun run build && bunx wrangler pages deploy dist --project-name=health-tracker",
     "install:all": "bun install",
     "clean": "rm -rf app/node_modules server/node_modules node_modules"
   },
-  "description": "孕期健康追踪系统 - Pregnancy Tracker",
-  "keywords": ["pregnancy", "health", "tracker", "pwa", "cloudflare-workers"]
+  "description": "个人健康监测系统 - Personal Health Tracker",
+  "keywords": ["health", "tracker", "wellness", "pwa", "cloudflare-workers", "monitoring"]
 }
