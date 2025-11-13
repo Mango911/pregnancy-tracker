@@ -15,9 +15,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'icons/*.png'],
       manifest: {
-        name: '备孕记录',
-        short_name: '备孕记录',
-        description: '备孕健康数据记录与分析',
+        name: '个人健康监测系统',
+        short_name: '健康监测',
+        description: '个人健康数据记录、分析和监测平台',
         theme_color: '#007AFF',
         background_color: '#FFFFFF',
         display: 'standalone',
@@ -44,14 +44,28 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [
+          // API 请求：优先使用网络，防止缓存过期数据
           {
-            urlPattern: /^https:\/\/api\..*/i,
+            urlPattern: /^https?:\/\/.*\/api\/.*/i,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',
+              networkTimeoutSeconds: 5,
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 5 * 60, // 5 分钟缓存
+              },
+            },
+          },
+          // 图片资源：缓存优先，但使用较短的过期时间
+          {
+            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'image-cache',
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 86400, // 1 day
+                maxAgeSeconds: 24 * 60 * 60, // 1 天
               },
             },
           },

@@ -1,0 +1,11 @@
+# 复制此文件为 .dev.vars 并填入你的本地开发密钥
+# Do not commit .dev.vars to version control!
+
+# JWT Secret (最少 32 字符的随机字符串)
+JWT_SECRET=your_jwt_secret_here_change_this_to_random_string_at_least_32_chars
+
+# VAPID Public Key (用于 Web Push 通知)
+VAPID_PUBLIC_KEY=your_vapid_public_key_here
+
+# VAPID Private Key (用于 Web Push 通知 - 保密)
+VAPID_PRIVATE_KEY=your_vapid_private_key_here

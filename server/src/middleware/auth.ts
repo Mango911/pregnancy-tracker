@@ -13,8 +13,13 @@ export async function authMiddleware(c: Context, next: Next) {
   try {
     const payload = await verifyJWT(token, c.env.JWT_SECRET);
 
+    // 验证 exp 字段存在
+    if (!payload.exp) {
+      return c.json({ error: 'Invalid token: missing expiration' }, 401);
+    }
+
     // 检查 token 是否过期
-    if (payload.exp && Date.now() / 1000 > payload.exp) {
+    if (Date.now() / 1000 > payload.exp) {
       return c.json({ error: 'Token expired' }, 401);
     }
 

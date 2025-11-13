@@ -6,6 +6,7 @@ import reports from './routes/reports';
 import push from './routes/push';
 import { getAllPushSubscriptions } from './db/push';
 import { sendPushNotification } from './utils/push';
+import { rateLimitMiddleware } from './middleware/rateLimit';
 
 type Bindings = {
   DB: D1Database;
@@ -40,11 +41,23 @@ app.use(
 // 健康检查
 app.get('/', (c) => {
   return c.json({
-    service: 'Pregnancy Tracker API',
+    service: 'Personal Health Tracker API',
     status: 'healthy',
     version: '1.0.0',
   });
 });
+
+// 对 auth 端点应用严格的速率限制（防止暴力破解）
+app.use('/api/auth/*', rateLimitMiddleware({
+  windowMs: 15 * 60 * 1000, // 15 分钟
+  maxRequests: 5, // 最多 5 次请求
+}));
+
+// 对其他 API 端点应用速率限制
+app.use('/api/*', rateLimitMiddleware({
+  windowMs: 60 * 1000, // 1 分钟
+  maxRequests: 60, // 最多 60 次请求
+}));
 
 // 路由
 app.route('/api/auth', auth);

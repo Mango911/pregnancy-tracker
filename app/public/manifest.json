@@ -1,7 +1,7 @@
 {
-  "name": "备孕记录",
-  "short_name": "备孕记录",
-  "description": "备孕健康数据记录与分析",
+  "name": "个人健康监测系统",
+  "short_name": "健康监测",
+  "description": "个人健康数据记录、分析和监测平台",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",
@@ -27,13 +27,13 @@
       "purpose": "any"
     }
   ],
-  "categories": ["health", "lifestyle"],
+  "categories": ["health", "wellness", "lifestyle"],
   "screenshots": [],
   "shortcuts": [
     {
       "name": "今日记录",
       "short_name": "记录",
-      "description": "快速记录今天的数据",
+      "description": "快速记录今天的健康数据",
       "url": "/record",
       "icons": [
         {
@@ -43,9 +43,9 @@
       ]
     },
     {
-      "name": "统计报告",
+      "name": "健康报告",
       "short_name": "报告",
-      "description": "查看统计数据",
+      "description": "查看健康统计和分析",
       "url": "/reports",
       "icons": [
         {

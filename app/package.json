@@ -1,6 +1,7 @@
 {
-  "name": "pregnancy-tracker-frontend",
+  "name": "health-tracker-frontend",
   "version": "1.0.0",
+  "description": "Personal Health Tracker - Vue 3 PWA Frontend",
   "type": "module",
   "scripts": {
     "dev": "vite",

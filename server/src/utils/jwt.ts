@@ -20,11 +20,25 @@ export async function verifyJWT(token: string, secret: string): Promise<any> {
 
   const expectedSignature = await sign(`${encodedHeader}.${encodedPayload}`, secret);
 
-  if (signature !== expectedSignature) {
+  // 使用常数时间比较防止时间攻击
+  if (!constantTimeCompare(signature, expectedSignature)) {
     throw new Error('Invalid signature');
   }
 
   return JSON.parse(base64UrlDecode(encodedPayload));
+}
+
+/**
+ * 常数时间字符串比较，防止时间攻击
+ */
+function constantTimeCompare(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
 }
 
 async function sign(data: string, secret: string): Promise<string> {
